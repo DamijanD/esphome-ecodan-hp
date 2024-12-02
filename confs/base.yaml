@@ -171,6 +171,10 @@ text_sensor:
       id: controller_firmware_text
       name: ${controller_firmware_text}
       entity_category: diagnostic
+    status_debug:
+      id: status_debug
+      name: ${status_debug}
+      entity_category: diagnostic
   
   - platform: template
     id: status_dip_switch_1
@@ -263,6 +267,9 @@ sensor:
     outside_temp:
       id: outside_temp
       name: ${outside_temp}
+    outside_temp_raw:
+      id: outside_temp_raw
+      name: ${outside_temp_raw}
     hp_feed_temp:
       id: hp_feed_temp
       name: ${hp_feed_temp}
