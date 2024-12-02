@@ -1,7 +1,7 @@
 #include "ecodan.h"
 #include <string>
 #include <algorithm>
-
+#include <chrono>
 namespace esphome {
 namespace ecodan 
 {
@@ -54,9 +54,16 @@ namespace ecodan
                 }
                 break;               
             case GetType::DEFROST_STATE:
-                status.DefrostActive = res[3] != 0;
+            {
+                bool defrostActiveNew = res[3] != 0; 
+                if (!defrostActiveNew && status.DefrostActive)
+                {
+                    status.DefrostLastEndTime = std::chrono::system_clock::now();
+                }
+                status.DefrostActive = defrostActiveNew;
                 publish_state("status_defrost", status.DefrostActive);
                 break;
+            }
             case GetType::ERROR_STATE:
                 // 1 = refrigerant error code
                 // 2+3 = fault code, [2]*100+[3]
@@ -111,6 +118,7 @@ namespace ecodan
 
                 break;
             case GetType::SH_TEMPERATURE_STATE:
+            {
                 // 0xF0 seems to be a sentinel value for "not reported in the current system"
                 status.Zone1RoomTemperature = res[1] != 0xF0 ? res.get_float16(1) : 0.0f;
                 status.Zone2RoomTemperature = res[3] != 0xF0 ? res.get_float16(3) : 0.0f;
@@ -120,10 +128,18 @@ namespace ecodan
 
                 publish_state("z1_room_temp", status.Zone1RoomTemperature);
                 publish_state("z2_room_temp", status.Zone2RoomTemperature);
-                publish_state("outside_temp", status.OutsideTemperature);
+                publish_state("outside_temp_raw", status.OutsideTemperature);
                 publish_state("hp_refrigerant_temp", status.HpRefrigerantLiquidTemperature); 
-                publish_state("hp_refrigerant_condensing_temp", status.HpRefrigerantCondensingTemperature);                
+                publish_state("hp_refrigerant_condensing_temp", status.HpRefrigerantCondensingTemperature);  
+
+                //freeze outside temp during defrost and wait 5 min to cool down
+                std::chrono::duration<double> elapsed_seconds = std::chrono::system_clock::now() - status.DefrostLastEndTime;
+                if (!status.DefrostActive && elapsed_seconds.count() > 5 * 60)
+                {
+                    publish_state("outside_temp", status.OutsideTemperature);
+                }              
                 break;
+            }
             case GetType::TEMPERATURE_STATE_A:
                 status.HpFeedTemperature = res.get_float16(1);
                 status.HpReturnTemperature = res.get_float16(4);
