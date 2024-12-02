@@ -1,4 +1,6 @@
 # ESPHome Ecodan heatpump
+It is based on https://github.com/gekkekoe/esphome-ecodan-hp the only difference is that I have applied outside temperature filtering so that it is not affected by defrosting. (Original reading is in the outside_raw sensor).
+
 It was based on https://github.com/rbroker/ecodan-ha-local. I've also managed to reverse engineer quite some additional properties and controls.
 - 0x03 : error codes
 - 0x05 : heat source

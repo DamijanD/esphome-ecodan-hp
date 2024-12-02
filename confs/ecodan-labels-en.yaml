@@ -94,6 +94,7 @@ substitutions:
   computed_output_power: Estimated Output Power
   daily_computed_output_power: Estimated Total Daily Energy Produced
   outside_temp: Outside Temp
+  outside_temp_raw: Outside Temp Raw
   hp_refrigerant_temp: Refrigerant Liquid Temp
   hp_refrigerant_condensing_temp: Refrigerant Condensing Temp
   hp_return_temp: Return Temp
@@ -111,3 +112,4 @@ substitutions:
   status_multi_zone_zone2: Z2 Working
   fault_code_text: Fault code
   refrigerant_error_code_text: Refrigerant error code
+  status_debug: Debug status
