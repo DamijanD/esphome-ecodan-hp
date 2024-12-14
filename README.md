@@ -13,7 +13,7 @@ It was based on https://github.com/rbroker/ecodan-ha-local. I've also managed to
 - 0xC9 : configuration command. It reports back controller version and much more, need more investigation.
 
 # available languages
-English (default), Dutch, Italian, French. Select the language in `ecodan-esphome.yaml` file. 
+English (default), Dutch, Italian, French, Spanish. Select the language in `ecodan-esphome.yaml` file. 
 If you want to contribute with a translation: copy the file `ecodan-labels-en.yaml` to `ecodan-labels-xx.yaml`, fill in all the labels and submit a pull request.
 
 # proxy mode: run melcloud wifi / procon as slave
@@ -93,6 +93,7 @@ packages:
             #confs/ecodan-labels-nl.yaml,
             #confs/ecodan-labels-it.yaml,
             #confs/ecodan-labels-fr.yaml,
+            #confs/ecodan-labels-es.yaml,
             confs/server-control.yaml,
             #confs/debug.yaml,
            ]
