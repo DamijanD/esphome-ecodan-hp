@@ -20,7 +20,7 @@ switch:
   - platform: template
     name: ${heatpump_switch_force_dhw}
     id: heatpump_switch_force_dhw
-    restore_mode: RESTORE_DEFAULT_OFF
+    restore_mode: DISABLED
     optimistic: true
     turn_on_action:
       - lambda: |-
@@ -32,7 +32,7 @@ switch:
   - platform: template
     name: ${heatpump_switch_holiday}
     id: heatpump_switch_holiday
-    restore_mode: RESTORE_DEFAULT_OFF
+    restore_mode: DISABLED
     optimistic: true
     turn_on_action:
       - lambda: |-
@@ -44,7 +44,7 @@ switch:
   - platform: template
     name: ${heatpump_switch_power_mode}
     id: heatpump_switch_power_mode
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: DISABLED
     optimistic: true
     turn_on_action:
       - lambda: |-
@@ -300,8 +300,9 @@ binary_sensor:
               - binary_sensor.is_off: status_holiday
               - switch.is_on: heatpump_switch_holiday
           then:
-            - switch.turn_off:
+            - switch.template.publish:
                 id: heatpump_switch_holiday
+                state: OFF
           else:
             if:
               condition:
@@ -309,8 +310,9 @@ binary_sensor:
                   - binary_sensor.is_on: status_holiday
                   - switch.is_off: heatpump_switch_holiday
               then:
-                - switch.turn_on:
-                    id: heatpump_switch_holiday      
+                - switch.template.publish:
+                    id: heatpump_switch_holiday
+                    state: ON
     status_dhw_forced:
       name: ${status_dhw_forced}
       id: status_dhw_forced
@@ -321,8 +323,9 @@ binary_sensor:
               - binary_sensor.is_off: status_dhw_forced
               - switch.is_on: heatpump_switch_force_dhw
           then:
-            - switch.turn_off:
+            - switch.template.publish:
                 id: heatpump_switch_force_dhw
+                state: OFF
           else:
             if:
               condition:
@@ -330,8 +333,9 @@ binary_sensor:
                   - binary_sensor.is_on: status_dhw_forced
                   - switch.is_off: heatpump_switch_force_dhw
               then:
-                - switch.turn_on:
+                - switch.template.publish:
                     id: heatpump_switch_force_dhw
+                    state: ON
     status_power:
       internal: true
       id: status_power
@@ -342,8 +346,9 @@ binary_sensor:
               - binary_sensor.is_on: status_power
               - switch.is_off: heatpump_switch_power_mode
           then:
-            - switch.turn_on:
+            - switch.template.publish:
                 id: heatpump_switch_power_mode
+                state: ON
           else:
             if:
               condition:
@@ -351,8 +356,9 @@ binary_sensor:
                   - binary_sensor.is_off: status_power
                   - switch.is_on: heatpump_switch_power_mode
               then:
-                - switch.turn_off:
-                    id: heatpump_switch_power_mode 
+                - switch.template.publish:
+                    id: heatpump_switch_power_mode
+                    state: OFF
     status_dhw_eco:
       id: status_dhw_eco 
       name: ${status_dhw_eco}
