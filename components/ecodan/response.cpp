@@ -213,6 +213,7 @@ namespace ecodan
                 publish_state("status_mixing_valve", static_cast<float>(status.MixingValveStatus));
                 publish_state("mixing_valve_step", static_cast<float>(status.MixingValveStep));
                 //ESP_LOGI(TAG, res.debug_dump_packet().c_str());
+                publish_state("status_debug",  res.debug_dump_packet().c_str());
                 break;              
             case GetType::FLOW_RATE:
                 // booster = 2, 
