@@ -175,6 +175,10 @@ text_sensor:
       id: controller_firmware_text
       name: ${controller_firmware_text}
       entity_category: diagnostic
+    status_debug:
+      id: status_debug
+      name: ${status_debug}
+      entity_category: diagnostic
 
   - platform: template
     id: status_multi_zone
