@@ -259,6 +259,8 @@ namespace ecodan
                 publish_state("status_prohibit_cool_z1", status.ProhibitCoolingZ1);
                 publish_state("status_prohibit_heating_z2", status.ProhibitHeatingZ2);
                 publish_state("status_prohibit_cool_z2", status.ProhibitCoolingZ2);
+
+                publish_state("status_debug",  res.debug_dump_packet().c_str());
                 break;
             case GetType::ENERGY_USAGE:
                 status.EnergyConsumedHeating = res.get_float24(4);
