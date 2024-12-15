@@ -213,7 +213,7 @@ namespace ecodan
                 publish_state("status_mixing_valve", static_cast<float>(status.MixingValveStatus));
                 publish_state("mixing_valve_step", static_cast<float>(status.MixingValveStep));
                 //ESP_LOGI(TAG, res.debug_dump_packet().c_str());
-                publish_state("status_debug",  res.debug_dump_packet().c_str());
+                publish_state("status_debug",  res.debug_dump_packet());
                 break;              
             case GetType::FLOW_RATE:
                 // booster = 2, 
@@ -261,7 +261,8 @@ namespace ecodan
                 publish_state("status_prohibit_heating_z2", status.ProhibitHeatingZ2);
                 publish_state("status_prohibit_cool_z2", status.ProhibitCoolingZ2);
 
-                publish_state("status_debug",  res.debug_dump_packet().c_str());
+                publish_state("status_debug",  res.debug_dump_packet());
+                //ESP_LOGI(TAG, res.debug_dump_packet().c_str());
                 break;
             case GetType::ENERGY_USAGE:
                 status.EnergyConsumedHeating = res.get_float24(4);
