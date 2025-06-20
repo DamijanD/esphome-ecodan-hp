@@ -79,6 +79,7 @@ substitutions:
   ou_two_phase_pipe_temp: Außengerät Zweiphasenleitung Temp
   output_power: Ausgangsleistung
   outside_temp: Außentemperatur
+  outside_temp_raw: Außentemperatur Roh
   refrigerant_error_code_text: Kältemittel-Fehlercode
   restart_button: ESP neu starten
   runtime: Betriebszeit
